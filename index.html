@@ -7,11 +7,17 @@
         <script>
             var cAngle=45;
             window.onload=function(){
+                var a =0;
                 var s=document.getElementsByClassName("slice");
                 var ss=document.getElementsByClassName("skewed-slice");
+                var small=document.getElementsByClassName("smallest-slice");
+                var t=document.getElementsByClassName("tiny");
+                cAngle=360/s.length;
                 for(i=0;i<s.length;i++){
                     s[i].style.transform="rotateZ("+(i*cAngle)+"deg)";
                     ss[i].style.transform="rotateZ("+(cAngle-90)+"deg)";
+                    small[i].style.transform="skewY("+(90-cAngle)+"deg)";
+                    t[i].style.transform="skewY("+(cAngle-90)+"deg) rotateZ("+(cAngle-90)+"deg)";
                 }
                 window.setInterval(function(){
                     a++;
@@ -26,14 +32,12 @@
             <div class="circle">
                 <div class="spinner" id="home-spinner">
                     <span class="spinner-center"></span>
-                    <div class="slice"><div class="skewed-slice">
-                        This is my text;
-                    </div></div>
-                    <div class="slice"><div class="skewed-slice"></div></div>
-                    <div class="slice"><div class="skewed-slice"></div></div>
-                    <div class="slice"><div class="skewed-slice"></div></div>
-                    <div class="slice"><div class="skewed-slice"></div></div>
-                    <div class="slice"><div class="skewed-slice"></div></div>
+                    <div class="slice"><div class="skewed-slice"><div class="smallest-slice"><div class="tiny">Projects</div></div></div></div>
+                    <div class="slice"><div class="skewed-slice"><div class="smallest-slice"><div class="tiny">Snippets</div></div></div></div>
+                    <div class="slice"><div class="skewed-slice"><div class="smallest-slice"><div class="tiny">Photos</div></div></div></div>
+                    <div class="slice"><div class="skewed-slice"><div class="smallest-slice"><div class="tiny">About</div></div></div></div>
+                    <div class="slice"><div class="skewed-slice"><div class="smallest-slice"><div class="tiny">Resume</div></div></div></div>
+                    <div class="slice"><div class="skewed-slice"><div class="smallest-slice"><div class="tiny">More</div></div></div></div>
                 </div>
             </div>
         </div>
