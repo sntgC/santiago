@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Santiago Cortes</title>
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <script>
+            var a=0;
+            window.onload=function(){
+                var s=document.getElementsByClassName("slice");
+                for(i=0;i<s.length;i++){
+                    s[i].style.transform="rotateZ("+(i*60)+"deg)";
+                }
+                window.setInterval(function(){
+                    a++;
+                    document.getElementById("home-spinner").style.transform="rotateZ("+a+"deg)";
+                },50);
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Code by Santiago</h1>
+        <div class="slice-container">
+            <div class="circle">
+                <div class="spinner" id="home-spinner">
+                    <span class="spinner-center"></span>
+                    <div class="slice"><div class="skewed-slice">  
+                    </div></div>
+                    <div class="slice"><div class="skewed-slice"></div></div>
+                    <div class="slice"><div class="skewed-slice"></div></div>
+                    <div class="slice"><div class="skewed-slice"></div></div>
+                    <div class="slice"><div class="skewed-slice"></div></div>
+                    <div class="slice"><div class="skewed-slice"></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <h2>My Blog</h2>
+            <p>Not a lot going on at the moment.</p>
+        </div>
+    </body>
+</html>
