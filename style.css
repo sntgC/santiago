@@ -34,19 +34,20 @@ h2{
     width: 96%;
     margin: 0 2%;
     height: 500px;
-    //overflow: hidden;
+    overflow: hidden;
     display: flex;
     justify-content: center;
 }
 
 .spinner-center{
-    height: 100px;
-    width: 100px;
+    height: 12.5%;
+    width: 12.5%;
     border-radius: 50%;
     background: #ffb629;
     z-index: 20;
     position: absolute;
     align-self: center;
+    left: 43.75%;
 }
 
 .spinner{
@@ -57,14 +58,12 @@ h2{
     overflow: hidden;
     display: flex;
     position: relative;
-    justify-content: center;
 }
 
 .slice{
     background: rgba(0,0,0,0);
     height: 50%;
-    width: 100%;
-    left: -50%;
+    width: 50%;
     position: absolute;
     transform-origin: bottom right;
     overflow: hidden;
@@ -79,7 +78,10 @@ h2{
     background: rgba(0,0,0,.10);
     position: relative;
     transform-origin: bottom right;
-    transform: rotateZ(-30deg);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1% 5% 0 50%;
 }
 
 .slice:nth-child(even) .skewed-slice{

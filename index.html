@@ -5,11 +5,13 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
         <link href="style.css" rel="stylesheet" type="text/css">
         <script>
-            var a=0;
+            var cAngle=45;
             window.onload=function(){
                 var s=document.getElementsByClassName("slice");
+                var ss=document.getElementsByClassName("skewed-slice");
                 for(i=0;i<s.length;i++){
-                    s[i].style.transform="rotateZ("+(i*60)+"deg)";
+                    s[i].style.transform="rotateZ("+(i*cAngle)+"deg)";
+                    ss[i].style.transform="rotateZ("+(cAngle-90)+"deg)";
                 }
                 window.setInterval(function(){
                     a++;
@@ -24,7 +26,8 @@
             <div class="circle">
                 <div class="spinner" id="home-spinner">
                     <span class="spinner-center"></span>
-                    <div class="slice"><div class="skewed-slice">  
+                    <div class="slice"><div class="skewed-slice">
+                        This is my text;
                     </div></div>
                     <div class="slice"><div class="skewed-slice"></div></div>
                     <div class="slice"><div class="skewed-slice"></div></div>
