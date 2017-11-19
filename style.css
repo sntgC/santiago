@@ -1,27 +1,127 @@
 body{
-    background:#a4bfd1;
+    background:#efefef;
+    background-image: url(background.png);
     min-height: 100vh;
     margin: 0;
     display: flex;
     flex-direction: column;
-    
+    align-items: center;
+}
+
+@media only screen and (max-width: 767px) {
+    body{
+        font-size:1em;
+        overflow-x: hidden;
+    }
+    canvas{
+        display: none;
+    }
+    .quote{
+        width: 90%!important;
+        font-size: .85em!important;
+    }
+}
+
+.quote{
+    padding: 20px;
+    margin: 10px;
+    width: 500px;
+    font-family: "Raleway";
+    font-size: 120%;
+    text-align: center;
+    line-height: 200%;
+    position: relative;
+}
+
+.quote::before{
+    content: "";
+    position: absolute;
+    background-image: url(quotes.png);
+    background-position: center;
+    background-size: contain;
+    z-index:-1;
+    top: -5px;
+    left: 5px;
+    min-height: 50px;
+    min-width: 50px;
+}
+
+.author{
+    font-size: 85%;
+    font-weight: bold;
+    position: absolute;
+    bottom: 0px;
+    right: 20px;
+}
+
+mark{
+    background: rgba(0,0,0,.5);
+    color: white;
+    display: inline;
+    padding: 5px 0;
+  box-shadow: 5px 0 0 rgba(0,0,0,.5), -5px 0 0 rgba(0,0,0,.5);
+}
+
+.filler{
+    flex-grow: 1;
+}
+
+.small-filler{
+    flex-grow: .001;
+}
+
+.page-intro{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.fixed-header{
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    transition: background-color .5s ease-out;
+}
+
+.black{
+    background: black;
+}
+
+.fixed-header h1{
+    color: white;
 }
 
 h1,h2{
     font-family: "Impact";
     color:#a63b35;
+    color: black;
+    font-size: 250%;
     text-transform:uppercase;
-    margin: 1% 2.5%;
+    margin: 10px 2.5%;
+}
+
+a{
+    font-family: "Raleway";
+    margin:20px;
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    font-weight: bolder;    
+    cursor: pointer;    
+}
+
+a:visited{
+    color:inherit;
 }
 
 p{
     margin: 1% 3%;
     font-family: "Raleway";
-}
-
-h2{
-    color:#3e94b2;
-    border-bottom: 2px solid #3e94b2;
 }
 
 .main-content{
@@ -92,6 +192,13 @@ h2{
     align-items: center;
     float: right;
     transform-origin: bottom right;
+}
+
+canvas{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -2;
 }
 
 .tiny{

@@ -20,7 +20,7 @@
                     t[i].style.transform="skewY("+(cAngle-90)+"deg) rotateZ("+(cAngle-90)+"deg)";
                 }
                 window.setInterval(function(){
-                    a++;
+                    a+=.5;
                     document.getElementById("home-spinner").style.transform="rotateZ("+a+"deg)";
                 },50);
             }

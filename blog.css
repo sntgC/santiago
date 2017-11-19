@@ -1,0 +1,39 @@
+.big-text{
+    font-family: "Lobster";
+    font-size: 1000%;
+}
+
+.icon-circle-inverse{
+    color:white;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50%;
+    background: black;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+h2{
+    color: black;
+    border: none;
+    font-size: 200%;
+}
+
+h3,h6{
+    margin: 0% 2.5%;
+    font-family: "Raleway";
+    font-weight: bold;
+    font-size: 100%;
+}
+
+h6{
+    font-weight: 100;
+    font-size: 80%;
+}
+
+.post{
+    width: 96%;
+    padding: 5px 2%;
+    text-align: left;
+}
