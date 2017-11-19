@@ -20,6 +20,9 @@ body{
         width: 90%!important;
         font-size: .85em!important;
     }
+    .fixed-header-bottom{
+        display: none;
+    }
 }
 
 .quote{
@@ -81,9 +84,24 @@ mark{
 .fixed-header{
     display: flex;
     justify-content: center;
-    position: fixed;
     width: 100%;
     transition: background-color .5s ease-out;
+}
+
+.fixed{
+    position: fixed;
+    width: 100%;
+}
+
+.white{
+    color:white;
+}
+
+.fixed-header-bottom{
+    width: 100%;
+    text-align: center;
+    position: relative;
+    transition: color .5s ease-out;
 }
 
 .black{
@@ -107,7 +125,7 @@ a{
     font-family: "Raleway";
     margin:20px;
     text-decoration: none;
-    color: black;
+    color: inherit;
 }
 
 a:hover{
