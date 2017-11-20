@@ -1,24 +1,84 @@
+var temp;
+
 window.onload=function(){
     var c=document.getElementById("low-poly-box");
     var ctx=c.getContext("2d");
-    drawLowPoly(ctx);
+    c.height=ctx.canvas.clientHeight;
+    c.width=ctx.canvas.clientWidth;
+    drawLowPoly(ctx,c);
 }
 
-function drawLowPoly(context){
-    var h=context.canvas.clientHeight;
-    var w=context.canvas.clientWidth;
-    var points=[[0,h],[0,0]];
+function drawLowPoly(context, element){
+    var H=context.canvas.clientHeight;
+    var W=context.canvas.clientWidth;
+    var h=parseInt(element.getAttribute("pixelheight"));
+    var w=parseInt(element.getAttribute("pixelwidth"));
+    var points=[[0,H-h],[0,H]];
     for(i=1;i<4;i++){
-        points.push([0,i*h/4]);
-        points.push([i*w/4,h]);
+        points.push([0,H-i*h/4]);
+        points.push([i*w/4,H]);
     }
     for(i=0;i<50;i++){
         var x=Math.random()*w;
-        var y=h-Math.random()*(h-x);
+        var y=H-Math.random()*(h-x);
         points.push([x,y]);
         context.fillRect(points[i][0],points[i][1],1,1);
     }
+    /*
+    Generate w/ same number of triangles
+    Generate w/ same number of outer triangles (only 2 neighbors)
+    Map each triangle to another
+    
+    */
     var ts=delauney(points);
+    temp=function(){
+        var a=getOuterTriangles(ts);
+        a.forEach(function(t){
+            var gray=255;
+            context.fillStyle="rgb(0,0,"+gray+")";
+            context.beginPath();
+            t.forEach(function(v){
+                context.lineTo(v[0],v[1]);
+            });
+            context.closePath();
+            context.fill();
+        })
+        console.log(a.length);
+        var tPoints=[[0,0],[W,0],[W,H],[0,H]];
+        for(i=4;i<a.length;i++){
+            var x=i%4;
+            switch(x){
+                case 1:
+                    tPoints.push([0,Math.random()*(H-10)+5]);
+                    break;
+                case 2:
+                    tPoints.push([W,Math.random()*(H-10)+5]);
+                    break;
+                case 3:
+                    tPoints.push([Math.random()*(W-10)+5,0]);
+                    break;
+                case 0:
+                    tPoints.push([Math.random()*(W-10)+5,H]);
+                    break;
+            }
+        }
+        for(i=a.length;i<points.length;i++){
+            tPoints.push([Math.random()*(W-10)+5,Math.random()*(H-10)+5]);
+        }
+        var b=delauney(tPoints);
+        console.log(getOuterTriangles(b).length);
+        b.forEach(function(t){
+            var gray=Math.round(Math.random()*255);
+            context.fillStyle="rgb(0,0,"+gray+")";
+            context.beginPath();
+            t.forEach(function(v){
+                context.lineTo(v[0],v[1]);
+            });
+            context.closePath();
+            context.fill();
+        })
+        return null;
+    }
     ts.forEach(function(t){
         var gray=Math.round(Math.random()*255);
         context.fillStyle="rgb("+gray+","+gray+","+gray+")";
@@ -64,6 +124,36 @@ function delauney(points){
     }
     return triangles;
     
+}
+
+function getOuterTriangles(triangles){
+    var temp=[];
+    var adMat=[];
+    for(i=0;i<triangles.length;i++)
+        adMat.push(0);
+    for(r=0;r<triangles.length;r++){
+        for(c=r+1;c<triangles.length;c++){
+            if(sharesEdge(triangles[r],triangles[c])){
+                    adMat[r]++;
+                    adMat[c]++;
+            }
+        }
+    }
+    for(r=0;r<triangles.length;r++){
+        if(adMat[r]==2)
+            temp.push(triangles[r]);
+    }
+    return temp;
+}
+
+function sharesEdge(a,b){
+    var A=getEdges(a);
+    var B=getEdges(b);
+    for(i=0;i<3;i++)
+        for(j=0;j<3;j++)
+            if(equal(A[i],B[j]))
+                return true;
+    return false;
 }
 
 function hasVertex(triangle, vertex){
