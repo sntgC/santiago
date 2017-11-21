@@ -1,4 +1,10 @@
 $(document).ready(function(){
+    $(".header-link").on("click",function(event){
+        event.preventDefault();
+        temp();
+        var link=$(this).attr("href");
+        setTimeout(function(){window.location.href=link},1190);
+    });
     $(".fixed").hide();
     $(document).on("scroll",function(){
         var top=$(document).scrollTop();

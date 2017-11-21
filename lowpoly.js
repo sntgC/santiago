@@ -22,8 +22,9 @@ function drawLowPoly(context, element){
         var x=Math.random()*w;
         var y=H-Math.random()*(h-x);
         points.push([x,y]);
-        context.fillRect(points[i][0],points[i][1],1,1);
+        //context.fillRect(points[i][0],points[i][1],1,1);
     }
+    points.sort(sort([0,H]));
     /*
     Generate w/ same number of triangles
     Generate w/ same number of outer triangles (only 2 neighbors)
@@ -79,9 +80,46 @@ function drawLowPoly(context, element){
         })
         return null;
     }
+    temp=function(){
+        element.style.zIndex=20;
+        var count=0;
+        var pointsToAdd=[[0,0]];
+        var pointsBuffer=[];
+        for(i=1;i<=10;i++){
+            pointsToAdd.push([0,i*H/10]);
+            pointsToAdd.push([W,i*H/10]);
+            pointsToAdd.push([i*W/10,0]);
+            pointsToAdd.push([i*W/10,H]);
+        }
+        for(i=0;i<20;i++){
+            var x=Math.random()*W;
+            var y=H*Math.random();
+            pointsToAdd.push([x,y]);
+        }
+        pointsToAdd.sort(sort([0,H]));
+        var anim=window.setInterval(function(){
+            if(points.length>0)
+                points.pop();
+            else
+                pointsBuffer.push(pointsToAdd[count++]);
+            ts=delauney(points.length>0? points:pointsBuffer);
+            context.clearRect(0,0,W,H);
+            ts.forEach(function(t){
+                context.fillStyle=getColor(t);
+                context.beginPath();
+                t.forEach(function(v){
+                    context.lineTo(v[0],v[1]);
+                });
+                context.closePath();
+                context.fill();
+            })
+            if(count==pointsToAdd.length){
+                window.clearInterval(anim);
+            }
+        },10);
+    }
     ts.forEach(function(t){
-        var gray=Math.round(Math.random()*255);
-        context.fillStyle="rgb("+gray+","+gray+","+gray+")";
+        context.fillStyle=getColor(t);
         context.beginPath();
         t.forEach(function(v){
             context.lineTo(v[0],v[1]);
@@ -91,26 +129,48 @@ function drawLowPoly(context, element){
     })
 }
 
+function sort(point){
+    return function(a,b){
+        return squaredDistance(point,a)-squaredDistance(point,b);
+    }
+}
+
+function getColor(triangle){
+    var count=0;
+    for(r=0;r<triangle.length;r++)
+        for(c=0;c<triangle[r].length;c++)
+            count+=triangle[r][c];
+    var gray=Math.round(count)%(Math.PI*2);
+    gray=Math.sin(gray)+1;
+    gray=Math.round(127.5*gray);
+    return "rgb("+gray+","+gray+","+gray+")";
+}
+
+function addPoint(triangles,points, v){
+    var buffer=[];
+    for(i=triangles.length-1;i>=0;i--){
+        var t=triangles[i];
+        if(isInCircumcircle(t,v)){
+            getEdges(t).forEach(function(e){
+                buffer.push(e);
+            });
+            triangles.splice(i,1);
+        }
+    }
+    buffer=removeDuplicateEdges(buffer);
+    buffer.forEach(function(e){
+        if(!hasVertex(e,v)){
+            triangles.push(getTriangle(e,v));
+        }
+    });
+    
+}
+
 function delauney(points){
     var st=superTriangle(points);
     var triangles=[st];
     points.forEach(function(v){
-        var buffer=[];
-        for(i=triangles.length-1;i>=0;i--){
-            var t=triangles[i];
-            if(isInCircumcircle(t,v)){
-                getEdges(t).forEach(function(e){
-                    buffer.push(e);
-                });
-                triangles.splice(i,1);
-            }
-        }
-        buffer=removeDuplicateEdges(buffer);
-        buffer.forEach(function(e){
-            if(!hasVertex(e,v)){
-                triangles.push(getTriangle(e,v));
-            }
-        });
+        addPoint(triangles,points,v);
     });
     for(i=triangles.length-1;i>=0;i--){
         var t=triangles[i];
