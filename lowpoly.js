@@ -1,4 +1,6 @@
 var temp;
+var shrink;
+var points;
 
 window.onload=function(){
     var c=document.getElementById("low-poly-box");
@@ -6,6 +8,44 @@ window.onload=function(){
     c.height=ctx.canvas.clientHeight;
     c.width=ctx.canvas.clientWidth;
     drawLowPoly(ctx,c);
+    shrink=function(){
+        if(document.cookie!=""){
+        var count=0;
+        var H=c.height;
+        var W=c.width;
+        var h=parseInt(c.getAttribute("pixelheight"));
+        var w=parseInt(c.getAttribute("pixelwidth"));
+        c.style.zIndex=20;
+        var count=0;
+        var pointsToAdd=JSON.parse(document.cookie);
+        document.cookie="";
+        var pointsBuffer=[];
+        points.sort(sort([0,H])); 
+        pointsToAdd.sort(sort([0,H]));
+        var anim=window.setInterval(function(){
+            if(pointsToAdd.length>0)
+                pointsToAdd.pop();
+            else
+                pointsBuffer.push(points[count++]);
+            var ts=delauney(pointsToAdd.length>0? pointsToAdd:pointsBuffer);
+            ctx.clearRect(0,0,W,H);
+            ts.forEach(function(t){
+                ctx.fillStyle=getColor(t);
+                ctx.beginPath();
+                t.forEach(function(v){
+                    ctx.lineTo(v[0],v[1]);
+                });
+                ctx.closePath();
+                ctx.fill();
+            })
+            if(count==points.length){
+                c.style.zIndex=-2;
+                window.clearInterval(anim);
+            }
+        },10);
+    }
+    };
+    shrink();
 }
 
 function drawLowPoly(context, element){
@@ -13,7 +53,7 @@ function drawLowPoly(context, element){
     var W=context.canvas.clientWidth;
     var h=parseInt(element.getAttribute("pixelheight"));
     var w=parseInt(element.getAttribute("pixelwidth"));
-    var points=[[0,H-h],[0,H]];
+    points=[[0,H-h],[0,H]];
     for(i=1;i<4;i++){
         points.push([0,H-i*h/4]);
         points.push([i*w/4,H]);
@@ -83,6 +123,7 @@ function drawLowPoly(context, element){
     temp=function(){
         element.style.zIndex=20;
         var count=0;
+        var temp=points.slice(0,points.length);
         var pointsToAdd=[[0,0]];
         var pointsBuffer=[];
         for(i=1;i<=10;i++){
@@ -98,11 +139,11 @@ function drawLowPoly(context, element){
         }
         pointsToAdd.sort(sort([0,H]));
         var anim=window.setInterval(function(){
-            if(points.length>0)
-                points.pop();
+            if(temp.length>0)
+                temp.pop();
             else
                 pointsBuffer.push(pointsToAdd[count++]);
-            ts=delauney(points.length>0? points:pointsBuffer);
+            ts=delauney(temp.length>0? temp:pointsBuffer);
             context.clearRect(0,0,W,H);
             ts.forEach(function(t){
                 context.fillStyle=getColor(t);
@@ -117,6 +158,7 @@ function drawLowPoly(context, element){
                 window.clearInterval(anim);
             }
         },10);
+        return JSON.stringify(pointsToAdd);
     }
     ts.forEach(function(t){
         context.fillStyle=getColor(t);

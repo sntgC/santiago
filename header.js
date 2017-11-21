@@ -1,9 +1,52 @@
+//----------THIS SHOULD BE MOVED---------
+var bindArrow=function(){
+    $("#down-arrow").on("click",function(){
+        var h=$("#posts").offset().top;
+        h-=$(".header").height();
+        $("html, body").animate({ scrollTop: h+"px" }); 
+    });
+}
+var switchView=function(a){
+    document.cookie=temp();
+    setTimeout(function(){
+            shrink();
+            switch(a){
+                case "index":
+                    document.getElementById("router").innerHTML=Handlebars.templates.index();
+                    document.getElementById("external-router").innerHTML="";
+                    break;
+                case "blog":
+                    document.getElementById("router").innerHTML=Handlebars.templates.blog();
+                    document.getElementById("external-router").innerHTML=Handlebars.templates['blog-posts']();
+                    console.log($("#down-arrow"));
+                    bindArrow();
+                    break;
+                case "projects":
+                    document.getElementById("router").innerHTML=Handlebars.templates.projects();
+                    document.getElementById("external-router").innerHTML=Handlebars.templates['projects-posts']();
+                    bindArrow();
+                    break;
+                case "about":
+                    document.getElementById("router").innerHTML=Handlebars.templates.about();
+                    document.getElementById("external-router").innerHTML="";
+                    break;
+                case "contact":
+                    document.getElementById("router").innerHTML=Handlebars.templates.contact();
+                    document.getElementById("external-router").innerHTML="";
+                    break;
+            }
+        },1190);
+}
+
 $(document).ready(function(){
     $(".header-link").on("click",function(event){
         event.preventDefault();
-        temp();
-        var link=$(this).attr("href");
-        setTimeout(function(){window.location.href=link},1190);
+        var a=$(this).attr("href");
+        a=a.substring(0,a.indexOf("."));
+        if($(document).scrollTop()>0){
+            $("html, body").animate({ scrollTop: 0+"px" },100,switchView(a)); 
+        }else
+            switchView(a);
     });
     $(".fixed").hide();
     $(document).on("scroll",function(){
