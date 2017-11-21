@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Santiago Cortes</title>
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <script>
+            var cAngle=45;
+            window.onload=function(){
+                var a =0;
+                var s=document.getElementsByClassName("slice");
+                var ss=document.getElementsByClassName("skewed-slice");
+                var small=document.getElementsByClassName("smallest-slice");
+                var t=document.getElementsByClassName("tiny");
+                cAngle=360/s.length;
+                for(i=0;i<s.length;i++){
+                    s[i].style.transform="rotateZ("+(i*cAngle)+"deg)";
+                    ss[i].style.transform="rotateZ("+(cAngle-90)+"deg)";
+                    small[i].style.transform="skewY("+(90-cAngle)+"deg)";
+                    t[i].style.transform="skewY("+(cAngle-90)+"deg) rotateZ("+(cAngle-90)+"deg)";
+                }
+                window.setInterval(function(){
+                    a+=.5;
+                    document.getElementById("home-spinner").style.transform="rotateZ("+a+"deg)";
+                },50);
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Code by Santiago</h1>
+        <div class="slice-container">
+            <div class="circle">
+                <div class="spinner" id="home-spinner">
+                    <span class="spinner-center"></span>
+                    <div class="slice"><div class="skewed-slice"><div class="smallest-slice"><div class="tiny">Projects</div></div></div></div>
+                    <div class="slice"><div class="skewed-slice"><div class="smallest-slice"><div class="tiny">Snippets</div></div></div></div>
+                    <div class="slice"><div class="skewed-slice"><div class="smallest-slice"><div class="tiny">Photos</div></div></div></div>
+                    <div class="slice"><div class="skewed-slice"><div class="smallest-slice"><div class="tiny">About</div></div></div></div>
+                    <div class="slice"><div class="skewed-slice"><div class="smallest-slice"><div class="tiny">Resume</div></div></div></div>
+                    <div class="slice"><div class="skewed-slice"><div class="smallest-slice"><div class="tiny">More</div></div></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <h2>My Blog</h2>
+            <p>Not a lot going on at the moment.</p>
+        </div>
+    </body>
+</html>
