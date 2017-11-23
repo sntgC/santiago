@@ -1,0 +1,1 @@
+var projects={cards:[{name:"Project Aether", img:"earth.JPG",desc:"Weather baloon website complete with real-time tracking and data collection.Now an vaarchive website storing the collected data, images, and videos.",link:"https://cdogg99.github.io/aether-project-site/"}]};

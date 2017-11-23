@@ -6,8 +6,8 @@ var bindArrow=function(){
         $("html, body").animate({ scrollTop: h+"px" }); 
     });
 }
-var switchView=function(a){
-    document.cookie=temp();
+var switchView=function(a,timeout){
+    target=temp();
     setTimeout(function(){
             shrink();
             switch(a){
@@ -18,12 +18,11 @@ var switchView=function(a){
                 case "blog":
                     document.getElementById("router").innerHTML=Handlebars.templates.blog();
                     document.getElementById("external-router").innerHTML=Handlebars.templates['blog-posts']();
-                    console.log($("#down-arrow"));
                     bindArrow();
                     break;
                 case "projects":
                     document.getElementById("router").innerHTML=Handlebars.templates.projects();
-                    document.getElementById("external-router").innerHTML=Handlebars.templates['projects-posts']();
+                    document.getElementById("external-router").innerHTML=Handlebars.templates['projects-posts'](projects);
                     bindArrow();
                     break;
                 case "about":
@@ -35,7 +34,7 @@ var switchView=function(a){
                     document.getElementById("external-router").innerHTML="";
                     break;
             }
-        },1190);
+        },timeout);
 }
 
 $(document).ready(function(){
@@ -43,17 +42,19 @@ $(document).ready(function(){
         event.preventDefault();
         var a=$(this).attr("href");
         a=a.substring(0,a.indexOf("."));
-        if($(document).scrollTop()>0){
-            $("html, body").animate({ scrollTop: 0+"px" },100,switchView(a)); 
+        if(window.screen.width>700){
+            if($(document).scrollTop()>0){
+                $("html, body").animate({ scrollTop: 0+"px" },100,switchView(a,1190)); 
+            }else
+                switchView(a,1190);
         }else
-            switchView(a);
+            switchView(a,0);
     });
     $(".fixed").hide();
     $(document).on("scroll",function(){
         var top=$(document).scrollTop();
         if(top>0){
             if($(".header").css("opacity")==1){
-                console.log("init");
                 $(".header").css("opacity",0);
                 shiftHeader();
             }

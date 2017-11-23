@@ -1,4 +1,5 @@
 var temp;
+var target=[];
 var shrink;
 var points;
 
@@ -9,7 +10,7 @@ window.onload=function(){
     c.width=ctx.canvas.clientWidth;
     drawLowPoly(ctx,c);
     shrink=function(){
-        if(document.cookie!=""){
+        if(target.length!=0){
         var count=0;
         var H=c.height;
         var W=c.width;
@@ -17,8 +18,8 @@ window.onload=function(){
         var w=parseInt(c.getAttribute("pixelwidth"));
         c.style.zIndex=20;
         var count=0;
-        var pointsToAdd=JSON.parse(document.cookie);
-        document.cookie="";
+        var pointsToAdd=target;
+        target=[];
         var pointsBuffer=[];
         points.sort(sort([0,H])); 
         pointsToAdd.sort(sort([0,H]));
@@ -73,54 +74,6 @@ function drawLowPoly(context, element){
     */
     var ts=delauney(points);
     temp=function(){
-        var a=getOuterTriangles(ts);
-        a.forEach(function(t){
-            var gray=255;
-            context.fillStyle="rgb(0,0,"+gray+")";
-            context.beginPath();
-            t.forEach(function(v){
-                context.lineTo(v[0],v[1]);
-            });
-            context.closePath();
-            context.fill();
-        })
-        console.log(a.length);
-        var tPoints=[[0,0],[W,0],[W,H],[0,H]];
-        for(i=4;i<a.length;i++){
-            var x=i%4;
-            switch(x){
-                case 1:
-                    tPoints.push([0,Math.random()*(H-10)+5]);
-                    break;
-                case 2:
-                    tPoints.push([W,Math.random()*(H-10)+5]);
-                    break;
-                case 3:
-                    tPoints.push([Math.random()*(W-10)+5,0]);
-                    break;
-                case 0:
-                    tPoints.push([Math.random()*(W-10)+5,H]);
-                    break;
-            }
-        }
-        for(i=a.length;i<points.length;i++){
-            tPoints.push([Math.random()*(W-10)+5,Math.random()*(H-10)+5]);
-        }
-        var b=delauney(tPoints);
-        console.log(getOuterTriangles(b).length);
-        b.forEach(function(t){
-            var gray=Math.round(Math.random()*255);
-            context.fillStyle="rgb(0,0,"+gray+")";
-            context.beginPath();
-            t.forEach(function(v){
-                context.lineTo(v[0],v[1]);
-            });
-            context.closePath();
-            context.fill();
-        })
-        return null;
-    }
-    temp=function(){
         element.style.zIndex=20;
         var count=0;
         var temp=points.slice(0,points.length);
@@ -158,7 +111,7 @@ function drawLowPoly(context, element){
                 window.clearInterval(anim);
             }
         },10);
-        return JSON.stringify(pointsToAdd);
+        return pointsToAdd;
     }
     ts.forEach(function(t){
         context.fillStyle=getColor(t);
