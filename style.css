@@ -53,17 +53,20 @@ h1 a{
     width: 377px;
     margin:10px 15px;
     background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .card p{
     border-bottom: 1px solid #cdcdcd;
     padding: 1% 0;
+    flex-grow: 1;
 }
 
 .card-link{
     margin:1.5% 2.5%;
-    display: block;
     font-weight: bolder;
     text-transform: uppercase;
 }
@@ -79,6 +82,7 @@ h1 a{
     font-size: 150%;
     color: white;
     background: black;
+    align-self: stretch;
 }
 
 .card img{
@@ -87,6 +91,10 @@ h1 a{
     object-fit: cover;
     object-position: center;
     filter: grayscale(100%);
+}
+
+.card img:hover{
+    filter:grayscale(0);
 }
 
 #external-router{
@@ -159,6 +167,7 @@ mark{
 .fixed{
     position: fixed;
     width: 100%;
+    z-index: 25;
 }
 
 .white{

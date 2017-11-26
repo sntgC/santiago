@@ -1,15 +1,20 @@
-var temp;
 var target=[];
 var shrink;
 var points;
+var ELEMENT;
 
 window.onload=function(){
-    var c=document.getElementById("low-poly-box");
+    ELEMENT=document.getElementById("low-poly-box");
+    var c=ELEMENT;
     var ctx=c.getContext("2d");
     c.height=ctx.canvas.clientHeight;
     c.width=ctx.canvas.clientWidth;
     drawLowPoly(ctx,c);
-    shrink=function(){
+    shrink(ELEMENT);
+}
+
+function shrink(c){
+        var ctx=c.getContext("2d");
         if(target.length!=0){
         var count=0;
         var H=c.height;
@@ -45,8 +50,53 @@ window.onload=function(){
             }
         },10);
     }
-    };
-    shrink();
+};
+
+function grow(c){
+    c.style.zIndex=20;
+    var context=c.getContext("2d");
+    var H=context.canvas.clientHeight;
+    var W=context.canvas.clientWidth;
+    var h=parseInt(c.getAttribute("pixelheight"));
+    var w=parseInt(c.getAttribute("pixelwidth"));
+    var count=0;
+    var temp=points.slice(0,points.length);
+    var pointsToAdd=[[0,0]];
+    var pointsBuffer=[];
+    var ts;
+    for(i=1;i<=10;i++){
+        pointsToAdd.push([0,i*H/10]);
+        pointsToAdd.push([W,i*H/10]);
+        pointsToAdd.push([i*W/10,0]);
+        pointsToAdd.push([i*W/10,H]);
+    }
+    for(i=0;i<20;i++){
+        var x=Math.random()*W;
+        var y=H*Math.random();
+        pointsToAdd.push([x,y]);
+    }
+    pointsToAdd.sort(sort([0,H]));
+    var anim=window.setInterval(function(){
+        if(temp.length>0)
+            temp.pop();
+        else
+            pointsBuffer.push(pointsToAdd[count++]);
+        ts=delauney(temp.length>0? temp:pointsBuffer);
+        context.clearRect(0,0,W,H);
+        ts.forEach(function(t){
+            context.fillStyle=getColor(t);
+            context.beginPath();
+            t.forEach(function(v){
+                context.lineTo(v[0],v[1]);
+            });
+            context.closePath();
+            context.fill();
+        })
+        if(count==pointsToAdd.length){
+            window.clearInterval(anim);
+        }
+    },10);
+    return pointsToAdd;
 }
 
 function drawLowPoly(context, element){
@@ -63,56 +113,9 @@ function drawLowPoly(context, element){
         var x=Math.random()*w;
         var y=H-Math.random()*(h-x);
         points.push([x,y]);
-        //context.fillRect(points[i][0],points[i][1],1,1);
     }
     points.sort(sort([0,H]));
-    /*
-    Generate w/ same number of triangles
-    Generate w/ same number of outer triangles (only 2 neighbors)
-    Map each triangle to another
-    
-    */
     var ts=delauney(points);
-    temp=function(){
-        element.style.zIndex=20;
-        var count=0;
-        var temp=points.slice(0,points.length);
-        var pointsToAdd=[[0,0]];
-        var pointsBuffer=[];
-        for(i=1;i<=10;i++){
-            pointsToAdd.push([0,i*H/10]);
-            pointsToAdd.push([W,i*H/10]);
-            pointsToAdd.push([i*W/10,0]);
-            pointsToAdd.push([i*W/10,H]);
-        }
-        for(i=0;i<20;i++){
-            var x=Math.random()*W;
-            var y=H*Math.random();
-            pointsToAdd.push([x,y]);
-        }
-        pointsToAdd.sort(sort([0,H]));
-        var anim=window.setInterval(function(){
-            if(temp.length>0)
-                temp.pop();
-            else
-                pointsBuffer.push(pointsToAdd[count++]);
-            ts=delauney(temp.length>0? temp:pointsBuffer);
-            context.clearRect(0,0,W,H);
-            ts.forEach(function(t){
-                context.fillStyle=getColor(t);
-                context.beginPath();
-                t.forEach(function(v){
-                    context.lineTo(v[0],v[1]);
-                });
-                context.closePath();
-                context.fill();
-            })
-            if(count==pointsToAdd.length){
-                window.clearInterval(anim);
-            }
-        },10);
-        return pointsToAdd;
-    }
     ts.forEach(function(t){
         context.fillStyle=getColor(t);
         context.beginPath();

@@ -1,3 +1,4 @@
+var animations=true;
 //----------THIS SHOULD BE MOVED---------
 var bindArrow=function(){
     $("#down-arrow").on("click",function(){
@@ -7,9 +8,9 @@ var bindArrow=function(){
     });
 }
 var switchView=function(a,timeout){
-    target=temp();
+    if(animations)target=grow(ELEMENT);
     setTimeout(function(){
-            shrink();
+            shrink(ELEMENT);
             switch(a){
                 case "index":
                     document.getElementById("router").innerHTML=Handlebars.templates.index();
@@ -42,7 +43,7 @@ $(document).ready(function(){
         event.preventDefault();
         var a=$(this).attr("href");
         a=a.substring(0,a.indexOf("."));
-        if(window.screen.width>700){
+        if(window.screen.width>700&&animations){
             if($(document).scrollTop()>0){
                 $("html, body").animate({ scrollTop: 0+"px" },100,switchView(a,1190)); 
             }else
