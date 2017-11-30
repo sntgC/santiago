@@ -41,6 +41,9 @@ h1 a{
     .fixed-header-bottom{
         display: none;
     }
+    .focus-text{
+        width: 100%!important;
+    }
 }
 
 .card-container{
@@ -95,6 +98,13 @@ h1 a{
 
 .card img:hover{
     filter:grayscale(0);
+}
+
+.text-dark{
+    background: rgba(0,0,0,0.9);
+    color:white;
+    padding: 1%;
+    text-align:center;
 }
 
 #external-router{
@@ -196,6 +206,21 @@ h1,h2{
     font-size: 250%;
     text-transform:uppercase;
     margin: 10px 2.5%;
+}
+
+h4{
+    font-family: "Lobster";
+    align-self: flex-start;
+    font-size: 150%;
+    text-transform: uppercase;
+    color:#454545;
+    margin-bottom: 0;
+    border-bottom: 4px solid #454545;
+    display: inline-block;
+}
+
+.focus-text{
+    width: 66.6%;
 }
 
 a{
