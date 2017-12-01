@@ -4,13 +4,15 @@ var points;
 var ELEMENT;
 
 window.onload=function(){
-    ELEMENT=document.getElementById("low-poly-box");
-    var c=ELEMENT;
-    var ctx=c.getContext("2d");
-    c.height=ctx.canvas.clientHeight;
-    c.width=ctx.canvas.clientWidth;
-    drawLowPoly(ctx,c);
-    shrink(ELEMENT);
+    if(window.screen.width>700){
+        ELEMENT=document.getElementById("low-poly-box");
+        var c=ELEMENT;
+        var ctx=c.getContext("2d");
+        c.height=ctx.canvas.clientHeight;
+        c.width=ctx.canvas.clientWidth;
+        drawLowPoly(ctx,c);
+        shrink(ELEMENT);
+    }
 }
 
 function shrink(c){

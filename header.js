@@ -8,9 +8,9 @@ var bindArrow=function(){
     });
 }
 var switchView=function(a,timeout){
-    if(animations)target=grow(ELEMENT);
+    if(animations&&window.screen.width>700)target=grow(ELEMENT);
     setTimeout(function(){
-            shrink(ELEMENT);
+            if(window.screen.width>700)shrink(ELEMENT);
             switch(a){
                 case "index":
                     document.getElementById("router").innerHTML=Handlebars.templates.index();

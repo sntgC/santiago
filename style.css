@@ -1,3 +1,15 @@
+@font-face {
+ font-family: "Raleway";
+ src: url("/fonts/Raleway-Regular.ttf") format("truetype");
+}
+@font-face {
+ font-family: "Lobster";
+ src: url("/fonts/Lobster-Regular.ttf") format("truetype");
+}
+@font-face {
+ font-family: "Anton";
+ src: url("/fonts/Anton-Regular.ttf") format("truetype");
+}
 body{
     background:#efefef;
     background-image: url(background.png);
@@ -37,6 +49,9 @@ h1 a{
     .quote{
         width: 90%!important;
         font-size: .85em!important;
+    }
+    h4{
+        margin-left: 2%;
     }
     .fixed-header-bottom{
         display: none;
@@ -200,7 +215,7 @@ mark{
 }
 
 h1,h2{
-    font-family: "Impact";
+    font-family: "Impact","Anton";
     color:#a63b35;
     color: black;
     font-size: 250%;
