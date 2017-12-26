@@ -1,4 +1,4 @@
-var animations=true;
+var animations=false;
 //----------THIS SHOULD BE MOVED---------
 var bindArrow=function(){
     $("#down-arrow").on("click",function(){
