@@ -154,7 +154,7 @@ h1 a{
     font-size: 85%;
     font-weight: bold;
     position: absolute;
-    bottom: 0px;
+    bottom: -10%;
     right: 20px;
 }
 
