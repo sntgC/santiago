@@ -1,0 +1,17 @@
+<div class="card big-card">
+    <img class="card-img big-img" src="assets/{{image}}">
+    <div class="card-sidebar">
+        <div class="card-header">
+            <span class="price">{{name}}</span>
+        </div>
+        <span class="name">{{date}}</span>
+        <div class="long-description">
+            {{{descFull}}}
+        </div>
+        <div class="options">
+            {{#each tags}}
+            <img class="tag" src="assets/{{img}}" title="{{title}}">
+            {{/each}}
+        </div>
+    </div>
+</div>

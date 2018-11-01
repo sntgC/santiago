@@ -1,0 +1,418 @@
+body{
+    background:#f7eef3;
+    margin:0;
+}
+
+/*##########COLORS##########*/
+
+.pink{
+    background: #ffbdbd;
+}
+
+.green{
+    background: #e1f7d5;
+}
+
+.blue{
+    background: #c9c9ff;
+}
+
+.lilac{
+    background: #f1cbff;
+}
+
+/*##########COLORS##########*/
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+.header{
+    background: black;
+    color:white;
+    padding: 15px 25px;
+    text-align: center;
+    position: relative;
+}
+
+.header-cart{
+    position: absolute;
+    right: 0;
+    top:0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none; /* no underline */
+}
+
+.header-cart .material-icons{
+    font-size: 28px;
+}
+
+h1,h2{
+    text-align: center;
+    font-family: "Righteous";
+    border-bottom: 1px solid #ababab;
+    margin:10px 15px;
+    padding: 5px 0;
+}
+
+.slide-container{
+    width: 100%;
+    height: 25vw;
+    background: #f1cbff;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.slide-path{
+    width: 20%;
+    height: 100%;
+    background: black;
+    margin: 0;
+    transform: skewX(-15deg);
+    overflow: hidden;
+}
+
+.slide{
+    height: 100%;
+    position: relative;
+    width: 100%;
+    font-family: "Righteous";
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 200%;
+}
+
+.inner-slide-container{
+    transition: .7s all;
+    transform: skewX(15deg);
+    top:0px;
+    height: 100%;
+    width:133.5%;
+    left:-16.75%;
+    position: relative;
+}
+
+.slide-path:hover .inner-slide-container{
+    top:-25vw;
+}
+
+.slide-path:nth-child(2n){
+    background: white;
+}
+
+.slide-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.store-container{
+    width: 100%;
+}
+
+.store-sidebar{
+    width: 15%;
+    height: 100%;
+    margin: 10px 0;
+    border-right: 1px solid #ababab;
+    font-family: "Roboto";
+}
+
+.store-sidebar p{
+    font-size: 115%;
+    margin:5px 20px 0 20px;
+    text-align: left;
+    font-weight: 300;
+}
+
+.store-container{
+    display: flex;
+    height: auto;
+}
+
+.logo-text{
+    font-family: "Righteous";
+    font-size: 250%;
+    margin: 0px 20px;
+    vertical-align: middle;
+}
+.store-contents{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+/*##########CARDS##########*/
+.card{
+    margin: 10px 15px;
+    box-shadow:  0px 1px 5px 0px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+    0px 3px 1px -2px rgba(0, 0, 0, 0.12); 
+    font-family: "Roboto";
+    background: #f9f9f9;
+    height: auto;
+    display: inline-block;
+}
+.card-img{
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    height: 325px;
+    width: 295px;
+}
+.card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 15px;
+}
+.price{
+    font-size: 20px;
+    font-family: "Roboto";
+}
+.name{
+    display: inline-block;
+    padding: 5px 15px;
+    font-size: 75%;
+    font-weight: lighter;
+}
+
+.short-description{
+    padding: 5px 15px;
+    font-size: 85%;
+    font-weight: normal;
+}
+
+.options{
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+}
+.color{
+    height: 20px;
+    width: 20px;
+    background-color: lightblue;
+    display: inline-block;
+    margin: 0 2px;
+}
+.color.selected{
+    border: 2px solid black;
+}
+.expand-icon{
+    cursor:pointer;
+}
+.card-sidebar{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    min-width: 300px;
+    max-width: 300px;
+}
+.big-card{
+    display: flex;
+    width: auto;
+}
+.big-card .big-img{
+    margin: 0;
+}
+.long-description{
+    font-weight: lighter;
+}
+.tag{
+    object-fit: cover;
+    object-position: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin: 3px 1px;
+}
+/*##########CARDS##########*/
+
+/*##########ITEMVIEW##########*/
+.page-content{
+    display: flex;
+    justify-content: center;
+    padding: 25px 20px;
+    font-family: "Roboto";
+}
+.big-img{
+    height: 600px;
+    width: 500px;
+    object-fit: cover;
+    margin: 0 25px;
+}
+.sidebar{
+    display: inline-flex;
+    flex-direction: column;
+    padding: 10px 15px;
+    background: white;
+    min-width: 300px;
+    min-height: 500px;
+}
+.sidebar .price{
+    font-weight: lighter;
+    margin: 5px 0;
+}
+.name-big{
+    font-size: 20px;
+    font-weight: normal;
+    padding: 0;
+}
+.option-name{
+    font-weight: bolder;
+    margin-top: 6px;
+}
+
+.option-row{
+    padding: 5px 0;
+}
+.option{
+    border:1px solid #565656;
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    display: inline-block;
+}
+.quantity{
+    width: 30px;
+    margin: 5px 0;
+    font-family: "Roboto";
+}
+.info{
+    font-weight: lighter;
+    padding: 5px 0;
+}
+.add-to-cart{
+    border: 0;
+    background: #00B9B9;
+    color:white;
+    font-family: "Roboto";
+    padding: 10px 15px;
+    font-size: 24px;
+    font-weight: lighter;
+    box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.2),
+    0px 3px 4px 0px rgba(0, 0, 0, 0.14),
+    0px 3px 3px -2px rgba(0, 0, 0, 0.12);
+}
+.add-to-cart:hover{
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+}
+/*##########ITEMVIEW##########*/
+.checkout-content{
+    display: flex;
+    justify-content: center;
+    padding: 15px 25px;
+}
+.checkout-info{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    background: #fdfdfd;
+    padding: 15px 25px;
+    box-shadow:  0px 1px 5px 0px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+    0px 3px 1px -2px rgba(0, 0, 0, 0.12); 
+    
+}
+input[type=text]{
+    font-family: "Roboto";
+    margin: 5px;
+    outline: none;
+    border: 1px solid #dedede;
+    font-size: 20px;
+    padding: 7px 4px;
+    font-weight: lighter;
+}
+.checkout-item-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0px 15px;
+}
+.checkout-item-info .name{
+    padding: 0;
+}
+.checkout-item-info .price{
+    align-self: flex-end;
+}
+.checkout-cart{
+    display: flex;
+    flex-direction: column;
+}
+.option-small{
+    height: 16px;
+    width: 24px;
+    font-size: 80%;
+    margin: 0 5px;
+}
+.detail-row{
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+}
+.detail-row .option-name{
+    margin: 0 4px 0 0;
+}
+.summary{
+    font-family: "Righteous";
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 15px;
+    font-size: 24px;
+}
+.checkout-img{
+    width: 145px;
+    height: 145px;
+    object-fit: cover;
+}
+.checkout-row{
+    display: flex;
+    font-family: "Roboto";
+    border-bottom: 1px solid #dfdfdf;
+    padding: 5px 0;
+}
+.modal{
+    display: none;
+    background-color: rgba(0,0,0,.25);
+    position: fixed;
+    top:0;
+    height: 100vh;
+    text-align: center;
+    width: 100vw;
+}
+#modalInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+#closeModal{
+    position: absolute;
+    right: 25px;
+    top:25px;
+    color:white;
+    cursor: pointer;
+}

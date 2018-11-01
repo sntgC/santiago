@@ -1,0 +1,18 @@
+{{#each this}}
+<div class="card" id={{id}}>
+    <img class="card-img" src="assets/{{image}}">
+    <div class="card-header">
+        <span class="price">{{name}}</span>
+        <i data={{@index}} class="material-icons expand-icon">open_in_new</i>
+    </div>
+    <span class="name">{{date}}</span>
+    <div class="short-description">
+        {{descShort}}
+    </div>
+    <div class="options">
+        {{#each tags}}
+            <img class="tag" src="assets/{{img}}" title="{{title}}">
+        {{/each}}
+    </div>
+</div>
+{{/each}}
