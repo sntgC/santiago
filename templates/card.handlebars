@@ -2,10 +2,19 @@
 <div class="card" id={{id}}>
     <img class="card-img" src="assets/{{image}}">
     <div class="card-header">
-        <span class="price">{{name}}</span>
+        <span>
+        {{#if link}}
+            <a href="{{link}}" target="_blank">
+        {{/if}}
+        <span class="price">{{{name}}}</span>
+        {{#if link}}
+            </a>
+        {{/if}}
+        </span>
         <i data={{@index}} class="material-icons expand-icon">open_in_new</i>
     </div>
-    <span class="name">{{date}}</span>
+    <span class="name">{{date}}
+    </span>
     <div class="short-description">
         {{descShort}}
     </div>
