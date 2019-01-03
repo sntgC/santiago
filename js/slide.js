@@ -1,8 +1,6 @@
 $(document).ready(function(){
     $(".inner-slide-container").each(function(i,e){
         var children=$(e).children();
-        /*if(i%2==0)
-            children[1].parentNode.insertBefore(children[1],children[0]);*/
         children=$(e).children();
         for(i=0;i<children.length;i++){
             $(children[i]).css("left","-"+(25.125*(i))+"%");
@@ -22,7 +20,7 @@ function fitCards(){
         numCards--;
     }
     if(width<635){
-        margin=($(window).width()-151-cardWidth)/2;
+        margin=($(window).width()-($("#sidebar-store").css("display")=="none"? 0:$("#sidebar-store").width())-cardWidth)/2;
     }
     var cards=document.getElementsByClassName("card");
     for(i=0;i<cards.length;i++){
@@ -32,5 +30,4 @@ function fitCards(){
         if(i%numCards==numCards-1)
             $(cards[i]).css("margin-right",margin+"px");
     }
-    console.log(width+" "+cardWidth);
 }
